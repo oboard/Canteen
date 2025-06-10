@@ -15,33 +15,33 @@
     <string name="sure">确定</string>
     <string name="text_message_logout">确认要退出吗？</string>
     <string name="canteen_profile">餐厅仓库管理系统</string>
-    <string name="home" translatable="false">Home</string>
-    <string name="orders" translatable="false">Orders</string>
-    <string name="profile" translatable="false">Profile</string>
-    <string name="favorites" translatable="false">Favorites</string>
+    <string name="home" translatable="false">主页</string>
+    <string name="orders" translatable="false">订单</string>
+    <string name="profile" translatable="false">个人信息</string>
+    <string name="favorites" translatable="false">收藏</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="search">搜索</string>
     <!--    <string name="select_user">Select User</string>-->
     <!--    <string name="type_a_message">Type a message</string>-->
 
-    <string name="notifications">Notifications</string>
-    <string name="collection">Collection</string>
-    <string name="inbox">Inbox</string>
-    <string name="settings" translatable="false">Settings</string>
-    <string name="support">Support</string>
-    <string name="about_us" translatable="false">About Us</string>
-    <string name="nick_name" translatable="false">Nick name</string>
-    <string name="verified">Verified</string>
-    <string name="user">User</string>
+    <string name="notifications">通知</string>
+    <string name="collection">收藏</string>
+    <string name="inbox">收件箱</string>
+    <string name="settings" translatable="false">设置</string>
+    <string name="support">支持</string>
+    <string name="about_us" translatable="false">关于我们</string>
+    <string name="nick_name" translatable="false">昵称</string>
+    <string name="verified">已验证</string>
+    <string name="user">用户</string>
     <string name="title">标题</string>
     <string name="read_more" translatable="false">更多</string>
     <string name="read_less" translatable="false">更少</string>
     <string name="share">分享</string>
     <string name="add_cart" translatable="false">加入购物车</string>
-    <string name="cart" translatable="false">Cart</string>
-    <string name="show_less" translatable="false">Show less</string>
-    <string name="show_more" translatable="false">Show more</string>
+    <string name="cart" translatable="false">购物车</string>
+    <string name="show_less" translatable="false">收起</string>
+    <string name="show_more" translatable="false">展开</string>
     <string name="order" translatable="false">订单</string>
     <string name="profile_error">获取简介错误</string>
     <string name="phone" translatable="false">手机号</string>

@@ -244,58 +244,52 @@ class GoodsDetailsFragment : Fragment() {
         layoutGoodsBottomSheetBinding.buttonSave.isClickable = false
         with(layoutGoodsBottomSheetBinding) {
             with(goodsDetails) {
-                name = inputName.text.toString().split1()
-                content = inputContent.text.toString().split1()
-                price = inputPrice.text.toString().split1()
-                place = inputPlace.text.toString().split1()
-                number = inputNumber.text.toString().split1()
+                name = inputName.text.toString()
+                content = inputContent.text.toString()
+                price = inputPrice.text.toString()
+                place = inputPlace.text.toString()
+                number = inputNumber.text.toString()
             }
-            goods.toString().showLog()
             lifecycleScope.launch {
                 goodsViewModel.updateGoods(goodsDetails).collect {
                     if (it == "1") {
                         getString(R.string.success).showToast()
                         layoutGoodsBottomSheetBinding.buttonSave.isClickable = true
+                        goodsBottomSheetDialog?.dismiss()
                     } else {
                         getString(R.string.failed).showToast()
                         layoutGoodsBottomSheetBinding.buttonSave.isClickable = true
                     }
-
                 }
             }
         }
-
-
     }
 
-    private fun String.split1() = this.split(": ".toRegex()).toTypedArray()[1]
-
-//    private fun isValidGoodsDetails(): Boolean { //验证输入的合法性
-//        return when {
-//            layoutGoodsBottomSheetBinding.inputName.text.toString().split(":".toRegex()).toTypedArray()[1].length == 1 -> {
-//                displayToast("输入商品名字")
-//                false
-//            }
-//            layoutGoodsBottomSheetBinding.inputContent.text.toString().split(":".toRegex()).toTypedArray()[1].length == 1 -> {
-//                displayToast("输入商品描述")
-//                false
-//            }
-//            categoryName.isEmpty() -> {
-//                displayToast("添加货物类型")
-//                false
-//            }
-//            layoutGoodsBottomSheetBinding.inputPrice.text.toString().split(":".toRegex()).toTypedArray()[1].length == 1 -> {
-//                displayToast("输入商品价格")
-//                false
-//            }
-//            layoutGoodsBottomSheetBinding.inputNumber.text.toString().split(":".toRegex()).toTypedArray()[1].length == 1 -> {
-//                displayToast("输入商品数量")
-//                false
-//            }
-//            else -> true
-//        }
-//    }
-
+    private fun isValidGoodsDetails(): Boolean { //验证输入的合法性
+        return when {
+            layoutGoodsBottomSheetBinding.inputName.text.toString().trim().isEmpty() -> {
+                displayToast(getString(R.string.input_goods_name))
+                false
+            }
+            layoutGoodsBottomSheetBinding.inputContent.text.toString().trim().isEmpty() -> {
+                displayToast(getString(R.string.input_goods_content))
+                false
+            }
+            categoryName.isEmpty() -> {
+                displayToast(getString(R.string.add_goods_category))
+                false
+            }
+            layoutGoodsBottomSheetBinding.inputPrice.text.toString().trim().isEmpty() -> {
+                displayToast(getString(R.string.input_goods_price))
+                false
+            }
+            layoutGoodsBottomSheetBinding.inputNumber.text.toString().trim().isEmpty() -> {
+                displayToast(getString(R.string.input_goods_number))
+                false
+            }
+            else -> true
+        }
+    }
 
     private fun displayToast(text: String) {
         text.showToast()

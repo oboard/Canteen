@@ -101,122 +101,120 @@
                         android:textSize="@dimen/_10ssp" />
                 </FrameLayout>
 
-                <EditText
-                    android:id="@+id/inputName"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:background="@drawable/background_input"
-                    android:hint="@string/goods_name"
-                    android:imeOptions="actionNext"
-                    android:importantForAutofill="no"
-                    android:inputType="text"
-                    android:paddingStart="@dimen/_16sdp"
-                    android:paddingEnd="@dimen/_16sdp"
-                    android:text='@{"商品名: " + goods.name}'
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_13ssp" />
-
-                <EditText
-                    android:id="@+id/inputContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:background="@drawable/background_input"
-                    android:hint="@string/goods_content"
-                    android:imeOptions="actionNext"
-                    android:importantForAutofill="no"
-                    android:inputType="text"
-                    android:paddingStart="@dimen/_16sdp"
-                    android:paddingEnd="@dimen/_16sdp"
-                    android:text='@{"描述: " + goods.content}'
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_13ssp" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_16sdp">
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:hint="@string/goods_name"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                    <EditText
-                        android:id="@+id/inputCategory"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputName"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_45sdp"
-                        android:background="@drawable/background_input"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:hint="@string/goods_category"
+                        android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
                         android:importantForAutofill="no"
                         android:inputType="text"
-                        android:paddingStart="@dimen/_16sdp"
-                        android:paddingEnd="@dimen/_16sdp"
-                        android:text='@{"类型: " + categoryName}'
+                        android:text="@{goods.name}"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/_13ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:hint="@string/goods_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:text="@{goods.content}"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/_13ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:hint="@string/goods_category"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:drawableEnd="@drawable/ic_expand_more"
+                        android:text="@{categoryName}"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/_13ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:hint="@string/goods_price"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:importantForAutofill="no"
+                        android:inputType="numberDecimal"
+                        android:text="@{String.valueOf(goods.price)}"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/_13ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:hint="@string/goods_place"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputPlace"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:text="@{goods.place}"
                         android:textColor="@color/primary_text"
                         android:textSize="@dimen/_13ssp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:visibility="gone" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    <ImageView
-                        android:id="@+id/imageSelectCategory"
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:src="@drawable/ic_expand_more"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <EditText
-                    android:id="@+id/inputPrice"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_45sdp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_16sdp"
-                    android:background="@drawable/background_input"
-                    android:hint="@string/goods_price"
-                    android:imeOptions="actionNext"
-                    android:importantForAutofill="no"
-                    android:inputType="number"
-                    android:paddingStart="@dimen/_16sdp"
-                    android:paddingEnd="@dimen/_16sdp"
-                    android:text='@{"价格: " + goods.price}'
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_13ssp" />
-
-                <EditText
-                    android:id="@+id/inputPlace"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:background="@drawable/background_input"
-                    android:hint="@string/goods_place"
-                    android:imeOptions="actionNext"
-                    android:importantForAutofill="no"
-                    android:inputType="text"
-                    android:paddingStart="@dimen/_16sdp"
-                    android:paddingEnd="@dimen/_16sdp"
-                    android:text='@{"来源地: " + goods.place}'
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_13ssp"
-                    android:visibility="gone" />
-
-                <EditText
-                    android:id="@+id/inputNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:background="@drawable/background_input"
                     android:hint="@string/goods_number"
-                    android:imeOptions="actionDone"
-                    android:importantForAutofill="no"
-                    android:inputType="number"
-                    android:paddingStart="@dimen/_16sdp"
-                    android:paddingEnd="@dimen/_16sdp"
-                    android:text='@{"数量: " + goods.number}'
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_13ssp" />
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:text="@{String.valueOf(goods.number)}"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/_13ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <FrameLayout
                     android:layout_width="match_parent"

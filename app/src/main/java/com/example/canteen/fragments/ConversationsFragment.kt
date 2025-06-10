@@ -24,11 +24,12 @@ import com.example.canteen.adapters.RecentConversationAdapter
 import com.example.canteen.databinding.FragmentConversationsBinding
 import com.example.canteen.listeners.ConversionListener
 import com.example.canteen.models.Conversation
-import com.example.canteen.models.Goods
 import com.example.canteen.models.User
-import com.example.canteen.utilities.*
+import com.example.canteen.utilities.Constants
+import com.example.canteen.utilities.PreferenceManager
+import com.example.canteen.utilities.getPreferenceManager
+import com.example.canteen.utilities.showDialog
 import com.example.canteen.viewmodels.ConversationViewModel
-import com.google.android.material.snackbar.Snackbar
 
 
 class ConversationsFragment : Fragment(), ConversionListener {
@@ -64,7 +65,7 @@ class ConversationsFragment : Fragment(), ConversionListener {
         recentConversationAdapter = RecentConversationAdapter(conversions, this)
         binding.conversationRecycleView.adapter = recentConversationAdapter
         ItemTouchHelper(object :
-            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START ) {
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START) {
             //拖拽排序的操作由于动作的和数据更新不同步，所以不能这样简单处理。拖拽速度快了就出错了。
             override fun onMove(
                 recyclerView: RecyclerView,
@@ -91,11 +92,24 @@ class ConversationsFragment : Fragment(), ConversionListener {
                 R.drawable.ic_delete_forever_black_24dp
             )
             var background: Drawable = ColorDrawable(Color.LTGRAY)
-            override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float,
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
                 actionState: Int,
                 isCurrentlyActive: Boolean
             ) {
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
                 val itemView = viewHolder.itemView
                 val iconMargin = (itemView.height - icon!!.intrinsicHeight) / 2
                 val iconLeft: Int
@@ -132,37 +146,44 @@ class ConversationsFragment : Fragment(), ConversionListener {
 
     @SuppressLint("NotifyDataSetChanged")
     fun setObservers() {
-            conversationViewModel.conversationsLiveData.observe(viewLifecycleOwner) { conversationList ->
-                conversions.clear()//清楚livedata 缓存的数据
-                conversationList.forEach { conversation ->
-                    val senderId: String = conversation.sendId
-                    val receiverId: String = conversation.receiverId
-                    val tempConversation = Conversation(
-                        id = conversation.id,
-                        sendId = senderId,
-                        receiverId = receiverId,
-                        dateTime = conversation.dateTime,
-                        lastMessage = conversation.lastMessage
-                    )
-                    if (preferenceManager.getString(Constants.KEY_USER_ID)
-                            .equals(senderId)
-                    ) { //获取对方信息 如果对面先发的信息 对方的ID 为 senderId
-                        tempConversation.conversionId = conversation.receiverId
-                        tempConversation.conversionName = conversation.receiverName
-                        tempConversation.conversionImage = conversation.receiverImage
-                    } else {
-                        tempConversation.conversionId = conversation.sendId
-                        tempConversation.conversionName = conversation.sendName
-                        tempConversation.conversionImage = conversation.sendImage
-                    }
-                    conversions.add(tempConversation)
-                }
-                conversions.sortByDescending { it.dateTime }
-                recentConversationAdapter.notifyDataSetChanged()
-                binding.conversationRecycleView.smoothScrollToPosition(0)
-                binding.conversationRecycleView.visibility = View.VISIBLE
-                binding.progressBar.visibility = View.INVISIBLE
+        conversationViewModel.conversationsLiveData.observe(viewLifecycleOwner) { conversationList ->
+            binding.progressBar.visibility = View.INVISIBLE
+            
+            if (conversationList == null || conversationList.isEmpty()) {
+                binding.conversationRecycleView.visibility = View.GONE
+                // TODO: 可以在这里添加一个空状态的视图
+                return@observe
             }
+            
+            conversions.clear()//清除livedata 缓存的数据
+            conversationList.forEach { conversation ->
+                val senderId: String = conversation.sendId
+                val receiverId: String = conversation.receiverId
+                val tempConversation = Conversation(
+                    id = conversation.id,
+                    sendId = senderId,
+                    receiverId = receiverId,
+                    dateTime = conversation.dateTime,
+                    lastMessage = conversation.lastMessage
+                )
+                if (preferenceManager.getString(Constants.KEY_USER_ID)
+                        .equals(senderId)
+                ) { //获取对方信息 如果对面先发的信息 对方的ID 为 senderId
+                    tempConversation.conversionId = conversation.receiverId
+                    tempConversation.conversionName = conversation.receiverName
+                    tempConversation.conversionImage = conversation.receiverImage
+                } else {
+                    tempConversation.conversionId = conversation.sendId
+                    tempConversation.conversionName = conversation.sendName
+                    tempConversation.conversionImage = conversation.sendImage
+                }
+                conversions.add(tempConversation)
+            }
+            conversions.sortByDescending { it.dateTime }
+            recentConversationAdapter.notifyDataSetChanged()
+            binding.conversationRecycleView.smoothScrollToPosition(0)
+            binding.conversationRecycleView.visibility = View.VISIBLE
+        }
     }
 
     private fun loadUserDetails() {
@@ -179,10 +200,10 @@ class ConversationsFragment : Fragment(), ConversionListener {
         }
     }
 
-    override fun onConversionClicked(user: User,position:Int) {
+    override fun onConversionClicked(user: User, position: Int) {
         Bundle().apply {
             putParcelable("KEY_USER", user)
-            putString("KEY_CONVERSATION_ID",conversions[position].id)
+            putString("KEY_CONVERSATION_ID", conversions[position].id)
             findNavController().navigate(R.id.chatFragment, this)
         }
     }
